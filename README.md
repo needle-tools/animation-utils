@@ -2,7 +2,7 @@
 
 
 ## Features
-- Replace missing clips via DragDrop  
+- Replace missing (or existing) AnimationClip bindings via DragDrop  
 
 Please [**see to the package readme**](./package) for more information 😊
 
