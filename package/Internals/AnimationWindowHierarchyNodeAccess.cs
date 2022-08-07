@@ -34,7 +34,10 @@ namespace Needle
 					}
 					var label = path + " : " + node.displayName;
 					var type = node.animatableObjectType;
+					var prevColor = GUI.color;
+					GUI.color = isMissing ? Color.yellow : Color.white;
 					var obj = EditorGUI.ObjectField(rect, label, null, type, true);
+					GUI.color = prevColor; 
 					var assignedObject = obj;
 					if (obj is Component comp) obj = comp.gameObject;
 					if (obj && obj is GameObject go)
