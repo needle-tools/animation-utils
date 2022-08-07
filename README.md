@@ -5,7 +5,7 @@
   _Tip: hold <kbd>ALT</kbd> while dragging to replace existing bindings_
 - Copy & Paste Bindings from/to PlayableDirectors when duplicating Timeline assets
 
-Please [**see to the package readme**](./package) for more information 😊
+Please [**see the package readme**](./package) for more information 😊
 
 ## Installation
 
