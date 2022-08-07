@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Needle
 {
@@ -11,13 +12,18 @@ namespace Needle
 	{
 		public static bool DrawNodeRow(Rect rect, object nodeObj, object hierarchy)
 		{
-			if (nodeObj is AnimationWindowHierarchyNode node && hierarchy is AnimationWindowHierarchyGUI gui)
+			if (nodeObj != null && nodeObj is AnimationWindowHierarchyNode node && hierarchy is AnimationWindowHierarchyGUI gui)
 			{
 				var isMissing = IsMissing(node);
 				var isMissingOrShortcut = isMissing || Event.current.modifiers == EventModifiers.Alt;
 				// if the binding is missing and we drag an object
 				if (isMissingOrShortcut && DragAndDrop.objectReferences.Length > 0)
 				{
+					if (!IsAllowedToReplace(node))
+					{
+						return false;
+					}
+
 					var path = node.path;
 					if (path == null) return false;
 					var lastPathPartIndex = path.LastIndexOf("/", StringComparison.Ordinal);
@@ -36,9 +42,11 @@ namespace Needle
 						var transform = go.transform;
 						foreach (var curve in node.curves)
 						{
+							if (!curve.rootGameObject) continue;
+							Object currentlyBoundObject = default;
 							if (!isMissing)
 							{
-								var currentlyBoundObject = AnimationUtility.GetAnimatedObject(curve.rootGameObject, curve.binding);
+								currentlyBoundObject = AnimationUtility.GetAnimatedObject(curve.rootGameObject, curve.binding);
 								if (currentlyBoundObject == assignedObject)
 								{
 									Debug.Log("Already bound to " + assignedObject, assignedObject);
@@ -51,12 +59,20 @@ namespace Needle
 								Debug.LogError("Can not assign " + transform.name + " because it's no child of " + root.name, root);
 								continue;
 							}
-							Debug.Log("<b>Update animation target</b> with: " + obj + 
+							// TODO: need to disable timeline animation mode otherwise we have overrides on prefabs if we replace "non missing" bindings
+							var isInAnimationMode = AnimationMode.InAnimationMode();
+							if (isInAnimationMode)
+								AnimationMode.StopAnimationMode();
+							Debug.Log("Update animation target with: " + obj +
 							          "\nPrevious binding: " + node.path + "." + node.propertyName + "; " + node.propertyName, obj);
+							if (currentlyBoundObject)
+								Undo.RegisterCompleteObjectUndo(currentlyBoundObject, "Replace animation target");
 							Undo.RegisterCompleteObjectUndo(curve.clip, "Replace curve");
 							var objPath = AnimationUtility.CalculateTransformPath(transform, root);
 							curve.clip.SetCurve(objPath, curve.type, curve.propertyName, curve.ToAnimationCurve());
 							RemoveCurve(gui, node);
+							if (isInAnimationMode)
+								AnimationMode.StartAnimationMode();
 						}
 					}
 					return true;
@@ -90,6 +106,26 @@ namespace Needle
 				current = current.parent;
 			}
 			return false;
+		}
+
+		private static readonly string[] invalidPropertyNames = new[]
+		{
+			"m_LocalPosition.",
+			"m_LocalRotation.",
+			"m_LocalScale.",
+		};
+
+		private static bool IsAllowedToReplace(AnimationWindowHierarchyNode node)
+		{
+			if (node.propertyName != null)
+			{
+				foreach (var name in invalidPropertyNames)
+				{
+					if (node.propertyName.StartsWith(name, StringComparison.Ordinal))
+						return false;
+				}
+			}
+			return true;
 		}
 
 		private static void RemoveCurve(AnimationWindowHierarchyGUI gui, AnimationWindowHierarchyNode node)
