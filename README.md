@@ -1,8 +1,10 @@
 # Animation Utils 🏇
 
 
-## Content
-Please [**continue to the package readme**](./package) for documentation and information 😊
+## Features
+- Replace missing clips via DragDrop  
+
+Please [**see to the package readme**](./package) for more information 😊
 
 ## Installation
 
