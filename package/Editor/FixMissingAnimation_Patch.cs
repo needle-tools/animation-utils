@@ -14,8 +14,8 @@ namespace Needle
 			var instance = new Harmony("com.needle.fix-missing-animation");
 			var animationWindowHierarchy = Type.GetType("UnityEditorInternal.AnimationWindowHierarchyGUI, UnityEditor.CoreModule");
 			
-			var menuMethod = AccessTools.Method(animationWindowHierarchy, "GenerateMenu");
-			instance.Patch(menuMethod, null, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(GenerateMenu_PostFix))));
+			// var menuMethod = AccessTools.Method(animationWindowHierarchy, "GenerateMenu");
+			// instance.Patch(menuMethod, null, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(GenerateMenu_PostFix))));
 			
 			var nodeGui = AccessTools.Method(animationWindowHierarchy, "DoNodeGUI");
 			instance.Patch(nodeGui, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(AnimationItemGUI_Prefix))));
