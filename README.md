@@ -1,8 +1,9 @@
 # Animation Utils 🏇
 
-
 ## Features
-- Replace missing (or existing) AnimationClip bindings via DragDrop  
+- Replace missing AnimationClip bindings via Drag & Drop  
+  _Tip: hold <kbd>ALT</kbd> while dragging to replace existing bindings_
+- Copy & Paste Bindings from/to PlayableDirectors when duplicating Timeline assets
 
 Please [**see to the package readme**](./package) for more information 😊
 
