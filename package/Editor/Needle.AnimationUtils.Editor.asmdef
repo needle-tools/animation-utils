@@ -1,7 +1,9 @@
 {
     "name": "Needle.AnimationUtils.Editor",
     "rootNamespace": "Needle",
-    "references": [],
+    "references": [
+        "GUID:02f771204943f4a40949438e873e3eff"
+    ],
     "includePlatforms": [
         "Editor"
     ],
@@ -13,6 +15,12 @@
     ],
     "autoReferenced": false,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.timeline",
+            "expression": "1.0.0",
+            "define": "HAVE_TIMELINE"
+        }
+    ],
     "noEngineReferences": false
 }
