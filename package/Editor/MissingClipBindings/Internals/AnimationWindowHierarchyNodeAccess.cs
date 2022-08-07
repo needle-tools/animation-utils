@@ -6,7 +6,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Needle
+namespace Needle.AnimationUtils
 {
 	public static class AnimationWindowHierarchyNodeAccess
 	{

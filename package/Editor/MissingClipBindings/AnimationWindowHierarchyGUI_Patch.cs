@@ -3,7 +3,7 @@ using HarmonyLib;
 using UnityEditor;
 using UnityEngine;
 
-namespace Needle
+namespace Needle.AnimationUtils
 {
 	internal static class AnimationWindowHierarchyGUI_Patch
 	{
