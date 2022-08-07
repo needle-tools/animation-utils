@@ -12,10 +12,19 @@ namespace Needle
 		private static void Init()
 		{
 			var instance = new Harmony("com.needle.fix-missing-animation");
-			var type = Type.GetType("UnityEditorInternal.AnimationWindowHierarchyGUI, UnityEditor.CoreModule");
-			var menuMethod = AccessTools.Method(type, "GenerateMenu");
-
+			var animationWindowHierarchy = Type.GetType("UnityEditorInternal.AnimationWindowHierarchyGUI, UnityEditor.CoreModule");
+			
+			var menuMethod = AccessTools.Method(animationWindowHierarchy, "GenerateMenu");
 			instance.Patch(menuMethod, null, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(GenerateMenu_PostFix))));
+			
+			var nodeGui = AccessTools.Method(animationWindowHierarchy, "DoNodeGUI");
+			instance.Patch(nodeGui, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(AnimationItemGUI_Prefix))));
+		}
+
+		private static bool AnimationItemGUI_Prefix(object __instance, Rect rect, object node, bool selected, bool focused, int row)
+		{
+			if (AnimationWindowHierarchyNodeAccess.DrawNodeRow(rect, node, __instance)) return false;
+			return true;
 		}
 
 		// Patch for:
@@ -25,10 +34,9 @@ namespace Needle
 			for (var index = 0; index < interactedNodes.Count; index++)
 			{
 				var node = interactedNodes[index];
-				var isMissing = AnimationWindowHierarchyNodeAccess.IsMissing(node, out var maybeBinding);
-				if (isMissing && maybeBinding.HasValue)
+				var isMissing = AnimationWindowHierarchyNodeAccess.IsMissing(node, out var binding);
+				if (isMissing)
 				{
-					var binding = maybeBinding.Value;
 					__result.AddItem(new GUIContent("Fix " + binding.path), false, () => { SelectedFix(binding); });
 				}
 
