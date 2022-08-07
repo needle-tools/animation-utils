@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.needle.animation-tests-package": {
+      "version": "file:../../tests-package",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.needle.fix-missing-animation": {
       "version": "file:../../../package",
       "depth": 0,

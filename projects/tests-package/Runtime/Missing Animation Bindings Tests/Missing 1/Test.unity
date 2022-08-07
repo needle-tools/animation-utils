@@ -331,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899046201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: 0}
+  m_LocalPosition: {x: 0, y: 1.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2850003610409028820}
@@ -682,7 +682,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 499764239692590887, guid: d4edfb0b261fa644eb1370ab67122b11, type: 3}
       propertyPath: m_Name
-      value: BlueCube
+      value: BlueCube Renamed
       objectReference: {fileID: 0}
     - target: {fileID: 636383243354424342, guid: d4edfb0b261fa644eb1370ab67122b11, type: 3}
       propertyPath: m_Center.x
@@ -747,6 +747,10 @@ PrefabInstance:
     - target: {fileID: 9123765957846002158, guid: d4edfb0b261fa644eb1370ab67122b11, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.2965
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123765957846002158, guid: d4edfb0b261fa644eb1370ab67122b11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4edfb0b261fa644eb1370ab67122b11, type: 3}
