@@ -15,6 +15,7 @@ namespace Needle
 			{
 				var isMissing = IsMissing(node);
 				var isMissingOrShortcut = isMissing || Event.current.modifiers == EventModifiers.Alt;
+				// if the binding is missing and we drag an object
 				if (isMissingOrShortcut && DragAndDrop.objectReferences.Length > 0)
 				{
 					var path = node.path;
@@ -31,7 +32,8 @@ namespace Needle
 					if (obj is Component comp) obj = comp.gameObject;
 					if (obj && obj is GameObject go)
 					{
-						Debug.Log("Update binding with: " + obj);
+						Debug.Log("<b>Update animation target</b> with: " + obj + 
+						          "\nPrevious binding: " + node.path + "." + node.propertyName + "; " + node.propertyName, obj);
 						foreach (var curve in node.curves)
 						{
 							Undo.RegisterCompleteObjectUndo(curve.clip, "Replace curve");
