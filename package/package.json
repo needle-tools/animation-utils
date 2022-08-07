@@ -1,5 +1,8 @@
 {
-    "name": "com.needle.fix-missing-animation",
-    "displayName": "Needle Fix Missing Animation",
-    "version": "0.0.1-pre"
+  "name": "com.needle.animation-utils",
+  "displayName": "Needle Animation Utils",
+  "version": "0.0.1-pre",
+  "description": "Utilities for Unity's animation tools. For example to make fixing missing animation bindings a drag-drop operation",
+  "type": "tool",
+  "unity": "2020.3"
 }

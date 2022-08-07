@@ -1,6 +1,6 @@
 {
-    "name": "Needle.FixMissingAnimation.Editor",
-    "rootNamespace": "",
+    "name": "Needle.Animation-Utils.Editor",
+    "rootNamespace": "Needle",
     "references": [],
     "includePlatforms": [
         "Editor"

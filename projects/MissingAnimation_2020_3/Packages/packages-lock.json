@@ -6,7 +6,7 @@
       "source": "local",
       "dependencies": {}
     },
-    "com.needle.fix-missing-animation": {
+    "com.needle.animation-utils": {
       "version": "file:../../../package",
       "depth": 0,
       "source": "local",
