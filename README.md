@@ -8,3 +8,9 @@ If your animation clip is missing bindings you can just drag drop objects from y
 https://user-images.githubusercontent.com/5083203/183302116-af215751-356e-4699-b735-981e1367a184.mp4
 
 
+## Contact ✒️
+<b>[needle — tools for unity](https://needle.tools)</b> • 
+[Discord Community](https://discord.needle.tools) • 
+[@NeedleTools](https://twitter.com/NeedleTools) • 
+[@marcel_wiessler](https://twitter.com/marcel_wiessler) • 
+[@hybridherbst](https://twitter.com/hybridherbst)
