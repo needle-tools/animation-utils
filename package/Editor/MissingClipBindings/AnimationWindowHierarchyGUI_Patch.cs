@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Needle
 {
-	internal static class FixMissingAnimationPatch
+	internal static class AnimationWindowHierarchyGUI_Patch
 	{
 		[InitializeOnLoadMethod]
 		private static void Init()
@@ -14,14 +14,14 @@ namespace Needle
 
 			if (animationWindowHierarchy != null)
 			{
-				var instance = new Harmony("com.needle.fix-missing-animation");
+				var instance = new Harmony("com.needle.animation-utils");
 
 				// var menuMethod = AccessTools.Method(animationWindowHierarchy, "GenerateMenu");
 				// instance.Patch(menuMethod, null, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(GenerateMenu_PostFix))));
 
 				var nodeGui = AccessTools.Method(animationWindowHierarchy, "DoNodeGUI");
 				if (nodeGui != null)
-					instance.Patch(nodeGui, new HarmonyMethod(AccessTools.Method(typeof(FixMissingAnimationPatch), nameof(AnimationItemGUI_Prefix))));
+					instance.Patch(nodeGui, new HarmonyMethod(AccessTools.Method(typeof(AnimationWindowHierarchyGUI_Patch), nameof(AnimationItemGUI_Prefix))));
 			}
 		}
 

@@ -1,5 +1,5 @@
 {
-    "name": "Needle.Animation-Utils.Editor",
+    "name": "Needle.AnimationUtils.Editor",
     "rootNamespace": "Needle",
     "references": [],
     "includePlatforms": [
@@ -9,7 +9,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "FixAnim-Harmony.dll"
+        "Needle.AnimationUtils.Harmony.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [],
