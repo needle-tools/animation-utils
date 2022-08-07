@@ -66,8 +66,7 @@ namespace Needle
 							var isInAnimationMode = AnimationMode.InAnimationMode();
 							if (isInAnimationMode)
 								AnimationMode.StopAnimationMode();
-							Debug.Log("Update animation target with: " + obj +
-							          "\nPrevious binding: " + node.path + "." + node.propertyName + "; " + node.propertyName, obj);
+							// Debug.Log("Update animation target with: " + obj + "\nPrevious binding: " + node.path + "." + node.propertyName + "; " + node.propertyName, obj);
 							if (currentlyBoundObject)
 								Undo.RegisterCompleteObjectUndo(currentlyBoundObject, "Replace animation target");
 							Undo.RegisterCompleteObjectUndo(curve.clip, "Replace curve");
