@@ -29,18 +29,34 @@ namespace Needle
 					var label = path + " : " + node.displayName;
 					var type = node.animatableObjectType;
 					var obj = EditorGUI.ObjectField(rect, label, null, type, true);
+					var assignedObject = obj;
 					if (obj is Component comp) obj = comp.gameObject;
 					if (obj && obj is GameObject go)
 					{
-						Debug.Log("<b>Update animation target</b> with: " + obj + 
-						          "\nPrevious binding: " + node.path + "." + node.propertyName + "; " + node.propertyName, obj);
+						var transform = go.transform;
 						foreach (var curve in node.curves)
 						{
+							if (!isMissing)
+							{
+								var currentlyBoundObject = AnimationUtility.GetAnimatedObject(curve.rootGameObject, curve.binding);
+								if (currentlyBoundObject == assignedObject)
+								{
+									Debug.Log("Already bound to " + assignedObject, assignedObject);
+									continue;
+								}
+							}
+							var root = curve.rootGameObject.transform;
+							if (!IsChild(root, transform))
+							{
+								Debug.LogError("Can not assign " + transform.name + " because it's no child of " + root.name, root);
+								continue;
+							}
+							Debug.Log("<b>Update animation target</b> with: " + obj + 
+							          "\nPrevious binding: " + node.path + "." + node.propertyName + "; " + node.propertyName, obj);
 							Undo.RegisterCompleteObjectUndo(curve.clip, "Replace curve");
-							var objPath = AnimationUtility.CalculateTransformPath(go.transform, curve.rootGameObject.transform);
+							var objPath = AnimationUtility.CalculateTransformPath(transform, root);
 							curve.clip.SetCurve(objPath, curve.type, curve.propertyName, curve.ToAnimationCurve());
-							if (isMissing)
-								RemoveCurve(gui, node);
+							RemoveCurve(gui, node);
 						}
 					}
 					return true;
@@ -63,6 +79,17 @@ namespace Needle
 		private static bool IsMissing(AnimationWindowHierarchyNode node)
 		{
 			return AnimationWindowUtility.IsNodeLeftOverCurve(node);
+		}
+
+		private static bool IsChild(Transform root, Transform possibleChild)
+		{
+			var current = possibleChild;
+			while (current)
+			{
+				if (current == root) return true;
+				current = current.parent;
+			}
+			return false;
 		}
 
 		private static void RemoveCurve(AnimationWindowHierarchyGUI gui, AnimationWindowHierarchyNode node)
