@@ -19,6 +19,7 @@ namespace Needle.AnimationUtils
 				// if the binding is missing and we drag an object
 				if (isMissingOrShortcut && DragAndDrop.objectReferences.Length > 0)
 				{
+					var draggedObject = DragAndDrop.objectReferences.FirstOrDefault();
 					if (!IsAllowedToReplace(node))
 					{
 						return false;
@@ -34,10 +35,14 @@ namespace Needle.AnimationUtils
 					}
 					var label = path + " : " + node.displayName;
 					var type = node.animatableObjectType;
+					// check if we can actually make an assignment
+					var canAssign = IsAssignable(draggedObject, type);
+					using var disabled = new EditorGUI.DisabledScope(!canAssign);
 					var prevColor = GUI.color;
 					GUI.color = isMissing ? Color.yellow : Color.white;
 					var obj = EditorGUI.ObjectField(rect, label, null, type, true);
-					GUI.color = prevColor; 
+					GUI.color = prevColor;
+					
 					var assignedObject = obj;
 					if (obj is Component comp) obj = comp.gameObject;
 					if (obj && obj is GameObject go)
@@ -97,6 +102,28 @@ namespace Needle.AnimationUtils
 		private static bool IsMissing(AnimationWindowHierarchyNode node)
 		{
 			return AnimationWindowUtility.IsNodeLeftOverCurve(node);
+		}
+
+		private static readonly List<Component> _components = new List<Component>();
+
+		/// <summary>
+		/// Checks if the dragged object (or any of its components) is assignable to the provided type
+		/// </summary>
+		private static bool IsAssignable(Object obj, Type type)
+		{
+			if (obj is GameObject go)
+			{
+				go.GetComponents(_components);
+				foreach (var comp in _components)
+				{
+					if (type.IsInstanceOfType(comp)) return true;
+				}
+			}
+			else if (obj is Component comp)
+			{
+				if (type.IsInstanceOfType(comp)) return true;
+			}
+			return false;
 		}
 
 		private static bool IsChild(Transform root, Transform possibleChild)
