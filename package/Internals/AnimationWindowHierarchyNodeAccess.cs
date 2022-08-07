@@ -115,6 +115,9 @@ namespace Needle
 			"m_LocalScale.",
 		};
 
+		/// <summary>
+		/// Dont allow replacing position.x and rotation.x etc individually because it is most likely not intentional (not sure if someone would ever want to replace only one property)
+		/// </summary>
 		private static bool IsAllowedToReplace(AnimationWindowHierarchyNode node)
 		{
 			if (node.propertyName != null)
