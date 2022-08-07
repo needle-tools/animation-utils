@@ -15,7 +15,7 @@ This package adds a simple context menu to `PlayableDirector` with two entries:
 - Copy Bindings
 - Paste Bindings
 
-https://user-images.githubusercontent.com/2693840/183312766-5d0d2af4-45d6-4320-851b-590d4294051f.mp4
+![video3](https://user-images.githubusercontent.com/2693840/183313252-bb213864-462c-4fd4-ad6f-f08fd25c00a8.gif)
 
 So the following flow now works:
 - select your PlayableDirector
