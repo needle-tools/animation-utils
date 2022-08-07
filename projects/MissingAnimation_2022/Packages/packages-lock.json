@@ -10,7 +10,9 @@
       "version": "file:../../../package",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
+      }
     },
     "com.unity.collab-proxy": {
       "version": "1.15.18",

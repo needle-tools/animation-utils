@@ -1,4 +1,4 @@
-#if HAVE_TIMELINE
+#if TIMELINE_INSTALLED
 
 using System.Linq;
 using UnityEditor;
