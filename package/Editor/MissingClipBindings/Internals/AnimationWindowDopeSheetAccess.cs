@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Profiling;
 using UnityEditor;
 using UnityEditorInternal;
 
@@ -19,26 +20,28 @@ namespace Needle.AnimationUtils
 		public static Type GetAnimEditorType() => typeof(AnimEditor);
 		public static Type GetAnimationWindowCurveType() => typeof(AnimationWindowCurve);
 
-		
-		
-		
+
+
+		private static ProfilerMarker needleAnimationCurveCompareMarker = new ProfilerMarker("AnimationWindowCurve.Compare");
 		private static readonly Dictionary<string, string[]> splitPaths = new Dictionary<string, string[]>();
 
 		public static bool CompareAnimWindowCurvePaths(object animWindowCurve, string otherPath, out int res)
 		{
 			if (animWindowCurve is AnimationWindowCurve curve)
 			{
-				if (!splitPaths.TryGetValue(curve.path, out var thisPath)) 
-					thisPath = splitPaths[curve.path] = curve.path.Split('/');
-				if (!splitPaths.TryGetValue(otherPath, out var objPath)) 
-					objPath = splitPaths[otherPath] = otherPath.Split('/');
-				res = OriginalCompare(thisPath, objPath);
-				return true;
+				using (needleAnimationCurveCompareMarker.Auto())
+				{
+					if (!splitPaths.TryGetValue(curve.path, out var thisPath)) 
+						thisPath = splitPaths[curve.path] = curve.path.Split('/');
+					if (!splitPaths.TryGetValue(otherPath, out var objPath)) 
+						objPath = splitPaths[otherPath] = otherPath.Split('/');
+					res = OriginalCompare(thisPath, objPath);
+					return true;
+				}
 			}
 
 			res = 0;
 			return false;
-
 		}
 
 		private static int OriginalCompare(string[] thisPath, string[] objPath)
