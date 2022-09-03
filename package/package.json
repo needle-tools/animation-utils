@@ -6,7 +6,7 @@
     "email": "hi@needle.tools",
     "url": "https://needle.tools"
   },
-  "version": "0.2.0-pre",
+  "version": "0.3.0-exp",
   "unity": "2020.3",
   "displayName": "Needle Animation Utils",
   "type": "tool",
