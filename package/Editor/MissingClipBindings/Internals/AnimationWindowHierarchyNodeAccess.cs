@@ -14,7 +14,7 @@ namespace Needle.AnimationUtils
 		{
 			if (nodeObj != null && nodeObj is AnimationWindowHierarchyNode node && hierarchy is AnimationWindowHierarchyGUI gui)
 			{
-				var isMissing = IsMissing(node);
+				var isMissing = IsMissing(node, gui.state);
 				var isMissingOrShortcut = isMissing || Event.current.modifiers == EventModifiers.Alt;
 				// if the binding is missing and we drag an object
 				if (isMissingOrShortcut && DragAndDrop.objectReferences.Length > 0)
@@ -99,9 +99,13 @@ namespace Needle.AnimationUtils
 			return false;
 		}
 
-		private static bool IsMissing(AnimationWindowHierarchyNode node)
+		private static bool IsMissing(AnimationWindowHierarchyNode node, AnimationWindowState state = null)
 		{
+#if !UNITY_2023_1_OR_NEWER
 			return AnimationWindowUtility.IsNodeLeftOverCurve(node);
+#else
+			return AnimationWindowUtility.IsNodeLeftOverCurve(state, node);
+#endif
 		}
 
 		private static readonly List<Component> _components = new List<Component>();
