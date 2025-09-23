@@ -9,10 +9,10 @@ Please [**see the package readme**](./package) for more information 😊
 
 ## Installation
 
-Quick install using [this Needle Installer](https://package-installer.glitch.me/v1/installer/OpenUPM/com.needle.animation-utils?registry=https://package.openupm.com) (just download and drop into your Unity project)
+Quick install using [this Needle Installer](https://package-installer.needle.tools/v1/installer/OpenUPM/com.needle.animation-utils?registry=https://package.openupm.com) (just download and drop into your Unity project)
 
 ### Use Needle Installer 🚀
-1. [Click here](https://package-installer.glitch.me/v1/installer/OpenUPM/com.needle.animation-utils?registry=https://package.openupm.com) to download a Needle installer .unitypackage.   
+1. [Click here](https://package-installer.needle.tools/v1/installer/OpenUPM/com.needle.animation-utils?registry=https://package.openupm.com) to download a Needle installer .unitypackage.   
 2. Drop it into your project to install this package from [OpenUPM](https://openupm.com/packages/com.needle.animation-utils/)  
 3. That's it 
 
